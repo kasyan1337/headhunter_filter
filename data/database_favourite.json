@@ -1,0 +1,13 @@
+[
+    {
+        "title": "Web-Developer",
+        "link": "https://hh.ru/vacancy/94107682",
+        "salary": {
+            "from": 400,
+            "to": 1500,
+            "currency": "USD",
+            "gross": false
+        },
+        "description": "Опытное знание <highlighttext>Python</highlighttext> и React. Уверенное владение библиотекой aiogram для <highlighttext>Python</highlighttext>. Опыт работы с фреймворками Flask, Django или FastAPI. "
+    }
+]

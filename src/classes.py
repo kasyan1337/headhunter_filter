@@ -1,6 +1,8 @@
-from abc import ABC, abstractmethod
-import requests
 import json
+from abc import ABC, abstractmethod
+
+import requests
+
 
 class VacancyAPI(ABC):
     """
@@ -45,11 +47,78 @@ class JSONSaver:
     Class for working with json file
     """
 
-    def __init__(self, filename):
+    def __init__(self, filename='data/database_all.json'):
         self.filename = filename
 
+    def load_database(self):
+        """
+        Load and display the entire database from database_all.json.
+        """
+        try:
+            with open(self.filename, 'r', encoding='utf-8') as file:  # what is encoding utf-8 good for?
+                data = json.load(file)
+                return data
+        except FileNotFoundError:
+            print("Database file not found.")
+            return []
+        except json.JSONDecodeError:
+            print("Database file is empty or corrupted.")
+            return []
+
+    def dump_database(self, data):
+        """
+        Overwrite the entire database in database_all.json with new data.
+        """
+        try:
+            with open(self.filename, 'w', encoding='utf-8') as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)  # looks good with indent 4, what ascii mean here
+        except Exception as e:
+            print(f'Something went wrong saving database: {e}')
+
     def add_vacancy(self, vacancy):
-        pass
+        """
+        Add a vacancy to database_favourite.json.
+        The vacancy parameter in add_vacancy and delete_vacancy methods is expected to be a dictionary representing a vacancy.
+        Ensure the dictionary includes a 'link' key for identification.
+        """
+        filepath = "data/database_favourite.json"
+        try:
+            with open(filepath, 'r+', encoding='utf-8') as file:  # what does r+ mean here, how is it different from 'r'
+                try:
+                    data = json.load(file)
+                except json.JSONDecodeError:
+                    data = []
+
+                vacancy_dict = {
+                    "title": vacancy.title,
+                    "link": vacancy.link,
+                    "salary": vacancy.salary,
+                    "description": vacancy.description
+                }
+
+                data.append(vacancy_dict)
+                file.seek(0)  # moves the file pointer to the beginning of the file
+                file.truncate()  # what is this? explain
+                json.dump(data, file, ensure_ascii=False, indent=4)
+        except FileNotFoundError:
+            with open(filepath, 'w', encoding='utf-8') as file:
+                json.dump([vacancy], file, ensure_ascii=False, indent=4)
 
     def delete_vacancy(self, vacancy):
-        pass
+        """
+        Delete a vacancy from database_favourite.json.
+        The vacancy parameter in add_vacancy and delete_vacancy methods is expected to be a dictionary representing a vacancy.
+        Ensure the dictionary includes a 'link' key for identification.
+        """
+        filepath = "data/database_favourite.json"
+        try:
+            with open(filepath, 'r+', encoding='utf-8') as file:
+                data = json.load(file)
+                data = [v for v in data if v['link'] != vacancy['link']]
+                file.seek(0)
+                file.truncate()
+                json.dump(data, file, ensure_ascii=False, indent=4)
+        except FileNotFoundError:
+            print("Favourites database file not found.")
+        except json.JSONDecodeError:
+            print("Favourites database file is empty or corrupted.")
