@@ -9,5 +9,66 @@
             "gross": false
         },
         "description": "Опытное знание <highlighttext>Python</highlighttext> и React. Уверенное владение библиотекой aiogram для <highlighttext>Python</highlighttext>. Опыт работы с фреймворками Flask, Django или FastAPI. "
+    },
+    {
+        "title": "Web-Developer",
+        "link": "https://hh.ru/vacancy/94107682",
+        "salary": {
+            "from": 400,
+            "to": 1500,
+            "currency": "USD",
+            "gross": false
+        },
+        "description": "Опытное знание <highlighttext>Python</highlighttext> и React. Уверенное владение библиотекой aiogram для <highlighttext>Python</highlighttext>. Опыт работы с фреймворками Flask, Django или FastAPI. "
+    },
+    {
+        "title": "Web-Developer",
+        "link": "https://hh.ru/vacancy/94107682",
+        "salary": {
+            "from": 400,
+            "to": 1500,
+            "currency": "USD",
+            "gross": false
+        },
+        "description": "Опытное знание <highlighttext>Python</highlighttext> и React. Уверенное владение библиотекой aiogram для <highlighttext>Python</highlighttext>. Опыт работы с фреймворками Flask, Django или FastAPI. "
+    },
+    {
+        "title": "Разработчик бэк-энда Python",
+        "link": "https://hh.ru/vacancy/94035150",
+        "salary": null,
+        "description": "Strong communication and organizational skills. English (at least intermediate level). <highlighttext>Python</highlighttext>. Django, DRF. Git. AWS. Unit tests, performance, and integration..."
+    },
+    {
+        "title": "Python junior разработчик",
+        "link": "https://hh.ru/vacancy/94120837",
+        "salary": {
+            "from": 50000,
+            "to": null,
+            "currency": "RUR",
+            "gross": false
+        },
+        "description": "Уверенные навыки написания кода на <highlighttext>Python</highlighttext>. Умение придумывать и реализовывать алгоритмы. Опыт работы с OpenCV, Numpy, Scipy. Хорошая математическая подготовка..."
+    },
+    {
+        "title": "Junior программист Python",
+        "link": "https://hh.ru/vacancy/93804724",
+        "salary": {
+            "from": 60000,
+            "to": 80000,
+            "currency": "RUR",
+            "gross": false
+        },
+        "description": "Уверенное знание <highlighttext>Python</highlighttext>. Уверенное знание SQL(PSQL, MSSQL). Умение работать с FastAPI. Умение работать с Git. Знание SQLAlchemy. "
+    },
+    {
+        "title": "Технический директор",
+        "link": "https://hh.ru/vacancy/93895266",
+        "salary": {
+            "from": null,
+            "to": 500000,
+            "currency": "RUR",
+            "gross": false
+        },
+        "description": "Высшее образование в области информационных технологий и разработки ПО. Опыт работы в области разработки программного обеспечения от 5 лет. "
     }
 ]

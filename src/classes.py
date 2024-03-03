@@ -55,7 +55,7 @@ class JSONSaver:
         Load and display the entire database from database_all.json.
         """
         try:
-            with open(self.filename, 'r', encoding='utf-8') as file:  # what is encoding utf-8 good for?
+            with open(self.filename, 'r', encoding='utf-8') as file:
                 data = json.load(file)
                 return data
         except FileNotFoundError:
@@ -71,7 +71,7 @@ class JSONSaver:
         """
         try:
             with open(self.filename, 'w', encoding='utf-8') as file:
-                json.dump(data, file, ensure_ascii=False, indent=4)  # looks good with indent 4, what ascii mean here
+                json.dump(data, file, ensure_ascii=False, indent=4)
         except Exception as e:
             print(f'Something went wrong saving database: {e}')
 
@@ -83,7 +83,7 @@ class JSONSaver:
         """
         filepath = "data/database_favourite.json"
         try:
-            with open(filepath, 'r+', encoding='utf-8') as file:  # what does r+ mean here, how is it different from 'r'
+            with open(filepath, 'r+', encoding='utf-8') as file:
                 try:
                     data = json.load(file)
                 except json.JSONDecodeError:
@@ -98,11 +98,11 @@ class JSONSaver:
 
                 data.append(vacancy_dict)
                 file.seek(0)  # moves the file pointer to the beginning of the file
-                file.truncate()  # what is this? explain
+                file.truncate()  # trims the remaining part, makes the file smaller
                 json.dump(data, file, ensure_ascii=False, indent=4)
         except FileNotFoundError:
             with open(filepath, 'w', encoding='utf-8') as file:
-                json.dump([vacancy], file, ensure_ascii=False, indent=4)
+                json.dump([vacancy_dict], file, ensure_ascii=False, indent=4)
 
     def delete_vacancy(self, vacancy):
         """
