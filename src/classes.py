@@ -19,7 +19,7 @@ class HeadHunterAPI(VacancyAPI):
     Class for work with HH API
     """
 
-    def get_vacancies(self, search_query):
+    def get_vacancies(self, search_query: str):
         url = f'https://api.hh.ru/vacancies?text={search_query}&per_page=50'
         response = requests.get(url)
         return response.json()['items']
@@ -30,11 +30,14 @@ class Vacancy:
     Class for filtering vacancies and comparisons
     """
 
-    def __init__(self, title, link, salary, description):
+    def __init__(self, title: str, link: str, salary: dict, description: str):
         self.title = title
         self.link = link
         self.salary = salary
         self.description = description
+
+    def __str__(self) -> str:
+        return f"{self.title} ({self.link})"
 
     @staticmethod
     def cast_to_object_list(vacancies_json):
@@ -94,7 +97,7 @@ class JSONSaver:
         except json.JSONDecodeError:
             print("Favourites database file is empty or corrupted.")
 
-    def filter_by_salary(self, salary_min):
+    def filter_by_salary(self, salary_min: int):
         """
         Filter out vacancies in database.json by salary and drop them in database_filtered.json
         """
@@ -108,7 +111,7 @@ class JSONSaver:
         with open("data/database_filtered.json", 'w', encoding='utf-8') as file:
             json.dump(filtered_vacancies, file, ensure_ascii=False, indent=4)
 
-    def filter_by_keyword(self, keywords):
+    def filter_by_keyword(self, keywords: str):
         """
         Filter out vacancies in database_filtered.json bz keywords, if not delete instance
         Keywords must be separated by comma and space
@@ -123,7 +126,7 @@ class JSONSaver:
         for vacancy in vacancies_to_remove:
             self.delete_vacancy(vacancy, "data/database_filtered.json")
 
-    def show_filtered(self, top_n):
+    def show_filtered(self, top_n: int):
         """
         Show filtered vacancies in database_filtered.json
         """
