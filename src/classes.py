@@ -84,7 +84,6 @@ class JSONSaver:
         """
         Delete a vacancy from database.json.
         """
-        # filepath = "data/database.json"
         try:
             with open(filepath, 'r+', encoding='utf-8') as file:
                 data = json.load(file)
