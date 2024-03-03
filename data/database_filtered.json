@@ -1,0 +1,24 @@
+[
+    {
+        "title": "Junior Python Developer",
+        "link": "https://hh.ru/vacancy/93361633",
+        "salary": {
+            "from": 70000,
+            "to": null,
+            "currency": "RUR",
+            "gross": false
+        },
+        "description": "Уверенное владение <highlighttext>Python</highlighttext>. Желательно: Умение работать с Docker. Опыт работы с Django-framework. Понимание CI/CD принципов. Опыт работы с..."
+    },
+    {
+        "title": "Python Backend Developer (Django)",
+        "link": "https://hh.ru/vacancy/93633836",
+        "salary": {
+            "from": 50000,
+            "to": null,
+            "currency": "RUR",
+            "gross": false
+        },
+        "description": "Технологический стек: <highlighttext>Python</highlighttext>, Django, PostgreSQL, REST API, Docker, Git. Ответственный и творческий подход к решению задач. Приветствуется опыт трекинга задач..."
+    }
+]

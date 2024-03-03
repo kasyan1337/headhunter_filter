@@ -27,7 +27,7 @@ class HeadHunterAPI(VacancyAPI):
 
 class Vacancy:
     """
-    Class for saving info about vacancies, can be used for comparisons
+    Class for filtering vacancies and comparisons
     """
 
     def __init__(self, title, link, salary, description):
@@ -44,44 +44,17 @@ class Vacancy:
 
 class JSONSaver:
     """
-    Class for working with json file
+    Class for loading the database
     """
 
-    def __init__(self, filename='data/database_all.json'):
+    def __init__(self, filename='data/database.json'):
         self.filename = filename
-
-    def load_database(self):
-        """
-        Load and display the entire database from database_all.json.
-        """
-        try:
-            with open(self.filename, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                return data
-        except FileNotFoundError:
-            print("Database file not found.")
-            return []
-        except json.JSONDecodeError:
-            print("Database file is empty or corrupted.")
-            return []
-
-    def dump_database(self, data):
-        """
-        Overwrite the entire database in database_all.json with new data.
-        """
-        try:
-            with open(self.filename, 'w', encoding='utf-8') as file:
-                json.dump(data, file, ensure_ascii=False, indent=4)
-        except Exception as e:
-            print(f'Something went wrong saving database: {e}')
 
     def add_vacancy(self, vacancy):
         """
-        Add a vacancy to database_favourite.json.
-        The vacancy parameter in add_vacancy and delete_vacancy methods is expected to be a dictionary representing a vacancy.
-        Ensure the dictionary includes a 'link' key for identification.
+        Add a vacancy to database.json.
         """
-        filepath = "data/database_favourite.json"
+        filepath = "data/database.json"
         try:
             with open(filepath, 'r+', encoding='utf-8') as file:
                 try:
@@ -104,13 +77,11 @@ class JSONSaver:
             with open(filepath, 'w', encoding='utf-8') as file:
                 json.dump([vacancy_dict], file, ensure_ascii=False, indent=4)
 
-    def delete_vacancy(self, vacancy):
+    def delete_vacancy(self, vacancy, filepath):
         """
-        Delete a vacancy from database_favourite.json.
-        The vacancy parameter in add_vacancy and delete_vacancy methods is expected to be a dictionary representing a vacancy.
-        Ensure the dictionary includes a 'link' key for identification.
+        Delete a vacancy from database.json.
         """
-        filepath = "data/database_favourite.json"
+        # filepath = "data/database.json"
         try:
             with open(filepath, 'r+', encoding='utf-8') as file:
                 data = json.load(file)
@@ -122,3 +93,55 @@ class JSONSaver:
             print("Favourites database file not found.")
         except json.JSONDecodeError:
             print("Favourites database file is empty or corrupted.")
+
+    def filter_by_salary(self, salary_min):
+        """
+        Filter out vacancies in database.json by salary and drop them in database_filtered.json
+        """
+        with open("data/database.json", 'r', encoding='utf-8') as file:
+            vacancies = json.load(file)
+
+        filtered_vacancies = [vacancy for vacancy in vacancies if
+                              vacancy["salary"] and vacancy["salary"]["from"] and vacancy["salary"][
+                                  "from"] >= salary_min]
+
+        with open("data/database_filtered.json", 'w', encoding='utf-8') as file:
+            json.dump(filtered_vacancies, file, ensure_ascii=False, indent=4)
+
+    def filter_by_keyword(self, keywords):
+        """
+        Filter out vacancies in database_filtered.json bz keywords, if not delete instance
+        Keywords must be separated by comma and space
+        """
+        with open("data/database_filtered.json", 'r+', encoding='utf-8') as file:
+            vacancies = json.load(file)
+            keywords = [keyword.strip().lower() for keyword in keywords.split(', ')]
+
+        vacancies_to_remove = [vacancy for vacancy in vacancies if vacancy['description'] and not all(
+            keyword in vacancy['description'].lower() for keyword in keywords)]
+
+        for vacancy in vacancies_to_remove:
+            self.delete_vacancy(vacancy, "data/database_filtered.json")
+
+    def show_filtered(self, top_n):
+        """
+        Show filtered vacancies in database_filtered.json
+        """
+        try:
+            with open("data/database_filtered.json", 'r', encoding='utf-8') as file:
+                vacancies = json.load(file)
+
+                # If list size exceeded, it shows the max amount
+                vacancies_to_show = vacancies[:top_n]
+
+                for vacancy in vacancies_to_show:
+                    print(f"Title: {vacancy['title']}\n"
+                          f"Salary: From {vacancy['salary']['from']} to {vacancy['salary']['to']} {vacancy['salary']['currency']}\n"
+                          f"Description: {vacancy['description']}\nLink: {vacancy['link']}\n")
+                if top_n <= len(vacancies):
+                    print(f"Shown up to {top_n} vacancies out of {len(vacancies)} available.")
+
+        except FileNotFoundError:
+            print("Filtered database file not found.")
+        except json.JSONDecodeError:
+            print("Filtered database file is empty or corrupted.")
