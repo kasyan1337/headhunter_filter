@@ -1,7 +1,7 @@
 from src import classes as c
 
 
-def user_interaction():
+def vacancies_keyword():
     hh_api = c.HeadHunterAPI()
     search_query = input("Введите поисковый запрос: ")
 
@@ -21,7 +21,7 @@ def user_interaction():
         json_saver.add_vacancy(vacancy)
         added_vacancies_count += 1
         print(f"Вакансия номер {added_vacancies_count} '{vacancy.title}' добавлена в файл.")
-    print(f"Всего добавлено вакансий: {added_vacancies_count}.")
+    print(f"По запросу {search_query} было добавлено {added_vacancies_count} вакансий в избранные.")
 
     # top_n = int(input("Введите количество вакансий для вывода в топ N: "))
     # filter_words = input("Введите ключевые слова для фильтрации вакансий: ").split()
