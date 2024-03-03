@@ -14,7 +14,7 @@ def load_database():
     hh_vacancies_json = hh_api.get_vacancies(search_query)
     vacancies_list = c.Vacancy.cast_to_object_list(hh_vacancies_json)
 
-    added_vacancies_count = 0  # Counter for added vacancies
+    added_vacancies_count = 0
     json_saver = c.JSONSaver()
 
     for vacancy in vacancies_list[:number_of_vacancies]:  # limits the number of vacancies to add based on user input
@@ -25,7 +25,7 @@ def load_database():
 
 
 def filter_database():
-    json_saver = c.JSONSaver()  # Create an instance of JSONSaver
+    json_saver = c.JSONSaver()
 
     top_n = int(input("Введите количество вакансий для вывода в топ N: "))
     filter_words = input("Введите ключевые слова для фильтрации вакансий: ")
