@@ -14,6 +14,16 @@ class VacancyAPI(ABC):
         pass
 
 
+class DataStorage(ABC):
+    @abstractmethod
+    def add_vacancy(self, vacancy):
+        pass
+
+    @abstractmethod
+    def delete_vacancy(self, vacancy, filepath):
+        pass
+
+
 class HeadHunterAPI(VacancyAPI):
     """
     Class for work with HH API
@@ -45,7 +55,7 @@ class Vacancy:
                 in vacancies_json]
 
 
-class JSONSaver:
+class JSONSaver(DataStorage):
     """
     Class for loading the database
     """
